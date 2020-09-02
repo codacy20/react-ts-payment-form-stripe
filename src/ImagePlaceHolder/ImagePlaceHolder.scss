@@ -1,0 +1,10 @@
+.ImagePlaceHolder-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .img{
+    width: 308px;
+    height: 271px;
+    background: transparent url('https://svgshare.com/i/PFg.svg') 0% 0% no-repeat padding-box;
+  }
+}
