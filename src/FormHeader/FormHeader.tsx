@@ -24,7 +24,20 @@ export default class FormHeader extends Component<{}, FormHeaderState> {
   render() {
     return (
       <div className="FormHeader-container">
-        <p>The current time is {this.state.time.toLocaleTimeString()}</p>
+        <h3 id="head">Last step!</h3>
+        <span id="par">Enter your payment info below.</span>
+        <div id="btn-container">
+          <div className="btn">
+            <div className="img img1"></div>
+            <span className="name">credit card</span>
+            <div className="check"></div>
+          </div>
+          <div className="btn">
+            <div className="img img2"></div>
+            <span className="name">paypal</span>
+            <div className="check"></div>
+          </div>
+        </div>
       </div>
     );
   }

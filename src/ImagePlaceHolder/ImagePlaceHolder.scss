@@ -1,10 +1,11 @@
 .ImagePlaceHolder-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   .img{
     width: 308px;
     height: 271px;
-    background: transparent url('https://svgshare.com/i/PFg.svg') 0% 0% no-repeat padding-box;
+    margin-top: 120px;
+    background: transparent url('https://raw.githubusercontent.com/codacy20/scripts/master/assets/beer.svg?token=ABNYBFM6WRYR3QF52JWITIK7LG4CA') 0% 0% no-repeat padding-box;
   }
 }

@@ -6,10 +6,11 @@
   opacity: 1;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   .left{
-    width: 45%;
+    width: 40%;
   }
   .right{
-    width: 55%;
+    width: 50%;
   }
 }
