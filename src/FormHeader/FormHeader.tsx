@@ -25,7 +25,11 @@ export default class FormHeader extends Component<
     let btns = [];
     for (let index = 0; index < this.props.PaymentMethods.length; index++) {
       btns.push(
-        <div className="btn" key={index} onClick={() => this.toggle(index)}>
+        <div
+          className={this.state.active === index ? "btn active" : "btn"}
+          key={index}
+          onClick={() => this.toggle(index)}
+        >
           <div
             className="img"
             style={{

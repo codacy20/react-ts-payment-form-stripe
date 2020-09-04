@@ -41,6 +41,10 @@
         color: #064B8D;
       }
     }
+    .btn.active{
+      box-shadow: 0px 7px 20px -3px #CCD7F8;
+      border: 1px solid #63BAFB;
+    }
     .btn:hover{
       border: 1px solid #63BAFB;
     }
