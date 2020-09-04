@@ -16,6 +16,16 @@
   }
   #btn-container{
     display: flex;
+    width: 611px;
+    margin-top: 45px;
+    .btn:first-child{
+      margin-right: 35px;
+    }
+    .btn:last-child{
+      .img{
+        width: 140px;
+      }
+    }
     .btn{
       background: #FFFFFF 0% 0% no-repeat padding-box;
       border: 1px solid #DCE3EA;
@@ -24,27 +34,34 @@
       width: 288px;
       height: 80px;
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
+      span {
+        font: normal normal 600 18px/22px Montserrat;
+        color: #064B8D;
+      }
     }
     .btn:hover{
       border: 1px solid #63BAFB;
     }
     .check{
+      box-sizing: border-box;
       padding: 1px;
-      width: 30px;
-      height: 30px;
-      background: transparent url('https://raw.githubusercontent.com/codacy20/scripts/master/assets/check.svg?token=ABNYBFKHLBILLNI6C5TF4LS7LG4EG') 0% 0% no-repeat padding-box;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px green solid;
+      opacity: 0.5;
+      &.active{
+        background: transparent url('https://raw.githubusercontent.com/codacy20/scripts/master/assets/check.svg?token=ABNYBFKHLBILLNI6C5TF4LS7LG4EG') 0% 0% no-repeat padding-box;
+        background-position: center;
+        opacity: 1;
+        border: 0;
+      }
     }
     .img{
       width: 80px;
       height: 50px;
-    }
-    .img1{
-      background: transparent url('https://raw.githubusercontent.com/codacy20/scripts/master/assets/creditcard.svg?token=ABNYBFPLGXY42WXLH4MX53S7LG4LG') 0% 0% no-repeat padding-box;
-    }
-    .img2{
-      background: transparent url('https://raw.githubusercontent.com/codacy20/scripts/master/assets/paypal.png?token=ABNYBFKUHYLDNLUXH7UTITK7LG4YI') 0% 0% no-repeat padding-box;
     }
   }
 }

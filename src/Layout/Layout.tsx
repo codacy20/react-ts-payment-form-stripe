@@ -7,6 +7,20 @@ import "./Layout.scss";
 type LayoutState = {
   time: Date;
 };
+
+const PaymentMethods = [
+  {
+    name: "Credit card",
+    img:
+      "https://raw.githubusercontent.com/codacy20/scripts/master/assets/creditcard.svg?token=ABNYBFPLGXY42WXLH4MX53S7LG4LG"
+  },
+  {
+    name: "",
+    img:
+      "https://raw.githubusercontent.com/codacy20/scripts/master/assets/paypal.png?token=ABNYBFKUHYLDNLUXH7UTITK7LG4YI"
+  }
+];
+
 export default class Layout extends Component<{}, LayoutState> {
   constructor(props: any) {
     super(props);
@@ -31,7 +45,7 @@ export default class Layout extends Component<{}, LayoutState> {
           <ImagePlaceHolder />
         </div>
         <div className="right">
-          <FormHeader />
+          <FormHeader PaymentMethods={PaymentMethods} />
           <Form />
         </div>
       </div>
