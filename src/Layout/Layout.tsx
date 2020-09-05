@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import ImagePlaceHolder from "../ImagePlaceHolder/ImagePlaceHolder";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
 import FormHeader from "../FormHeader/FormHeader";
-import Form from "../Form/Form";
+import { Form } from "../Form/Form";
 import "./Layout.scss";
 
 type LayoutState = {
@@ -39,6 +42,10 @@ export default class Layout extends Component<{}, LayoutState> {
   }
 
   render() {
+    const stripePromise = loadStripe(
+      "pk_test_51HMTkaKix1IQrXIBNWOvp1keplqF6IMEVAukLJ9dlQ5lvOnmRiyoMsg7mb54aOiKzBSkB4XBQoQSUvGuK1BZKHR200DH8lWgD2"
+    );
+
     return (
       <div className="Layout-container">
         <div className="left">
@@ -46,7 +53,9 @@ export default class Layout extends Component<{}, LayoutState> {
         </div>
         <div className="right">
           <FormHeader PaymentMethods={PaymentMethods} />
-          <Form />
+          <Elements stripe={stripePromise}>
+            <Form />
+          </Elements>
         </div>
       </div>
     );
