@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  CardElement,
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement
+} from "@stripe/react-stripe-js";
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -25,21 +32,24 @@ export default function CheckoutForm() {
         setClientSecret(data.clientSecret);
       });
   }, []);
-  const cardStyle = {
-    style: {
-      base: {
-        color: "#32325d",
-        fontFamily: "Arial, sans-serif",
-        fontSmoothing: "antialiased",
-        fontSize: "16px",
-        "::placeholder": {}
-      },
-      invalid: {
-        color: "#fa755a",
-        iconColor: "#fa755a"
+  const createOptions = () => {
+    return {
+      style: {
+        base: {
+          fontSize: "16px",
+          color: "#424770",
+          letterSpacing: "0.025em",
+          "::placeholder": {
+            color: "#aab7c4"
+          }
+        },
+        invalid: {
+          color: "#c23d4b"
+        }
       }
-    }
+    };
   };
+
   const handleChange = async (event) => {
     // Listen for changes in the CardElement
     // and display any errors as the customer types their card details
@@ -65,11 +75,23 @@ export default function CheckoutForm() {
   };
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      <CardElement
+      {/* <CardElement
         id="card-element"
         options={cardStyle}
         onChange={handleChange}
-      />
+      /> */}
+      <label>
+        Card number
+        <CardNumberElement {...createOptions()} onChange={handleChange} />
+      </label>
+      <label>
+        Expiration date
+        <CardExpiryElement {...createOptions()} onChange={handleChange} />
+      </label>
+      <label>
+        CVC
+        <CardCvcElement onChange={handleChange} />
+      </label>
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
           {processing ? <div className="spinner" id="spinner"></div> : "Pay"}

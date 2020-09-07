@@ -7,10 +7,6 @@ import FormHeader from "../FormHeader/FormHeader";
 import { Form } from "../Form/Form";
 import "./Layout.scss";
 
-type LayoutState = {
-  time: Date;
-};
-
 const PaymentMethods = [
   {
     name: "Credit card",
@@ -24,21 +20,10 @@ const PaymentMethods = [
   }
 ];
 
-export default class Layout extends Component<{}, LayoutState> {
+export default class Layout extends Component<{}, {}> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      time: new Date()
-    };
-  }
-  tick() {
-    this.setState({
-      time: new Date()
-    });
-  }
-
-  componentDidMount() {
-    setInterval(() => this.tick(), 1000);
+    this.state = {};
   }
 
   render() {
