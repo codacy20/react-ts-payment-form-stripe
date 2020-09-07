@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  CardElement,
-  useStripe,
-  useElements,
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement
-} from "@stripe/react-stripe-js";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import "../CheckoutForm/CheckoutForm.scss";
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -16,7 +10,6 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
     window
       .fetch("https://s1up7.sse.codesandbox.io/create", {
         method: "POST",
@@ -32,27 +25,22 @@ export default function CheckoutForm() {
         setClientSecret(data.clientSecret);
       });
   }, []);
-  const createOptions = () => {
-    return {
-      style: {
-        base: {
-          fontSize: "16px",
-          color: "#424770",
-          letterSpacing: "0.025em",
-          "::placeholder": {
-            color: "#aab7c4"
-          }
-        },
-        invalid: {
-          color: "#c23d4b"
-        }
+  const cardStyle = {
+    style: {
+      base: {
+        color: "#32325d",
+        fontFamily: "Montserrat",
+        fontSize: "24px",
+        "::placeholder": {}
+      },
+      invalid: {
+        color: "#fa755a",
+        iconColor: "#fa755a"
       }
-    };
+    },
+    hidePostalCode: true
   };
-
   const handleChange = async (event) => {
-    // Listen for changes in the CardElement
-    // and display any errors as the customer types their card details
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
@@ -75,35 +63,25 @@ export default function CheckoutForm() {
   };
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      {/* <CardElement
+      <CardElement
         id="card-element"
         options={cardStyle}
         onChange={handleChange}
-      /> */}
-      <label>
-        Card number
-        <CardNumberElement {...createOptions()} onChange={handleChange} />
-      </label>
-      <label>
-        Expiration date
-        <CardExpiryElement {...createOptions()} onChange={handleChange} />
-      </label>
-      <label>
-        CVC
-        <CardCvcElement onChange={handleChange} />
-      </label>
+      />
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
-          {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
+          {processing ? (
+            <div className="spinner" id="spinner"></div>
+          ) : (
+            "Join Now"
+          )}
         </span>
       </button>
-      {/* Show any error that happens when processing the payment */}
       {error && (
         <div className="card-error" role="alert">
           {error}
         </div>
       )}
-      {/* Show a success message upon completion */}
       <p className={succeeded ? "result-message" : "result-message hidden"}>
         Payment succeeded, see the result in your
         <a href={`https://dashboard.stripe.com/test/payments`}>
