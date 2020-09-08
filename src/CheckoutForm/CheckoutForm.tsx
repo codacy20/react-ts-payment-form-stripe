@@ -7,6 +7,9 @@ import {
   CardExpiryElement
 } from "@stripe/react-stripe-js";
 import "../CheckoutForm/CheckoutForm.scss";
+import toaster from "toasted-notes";
+import "toasted-notes/src/styles.css";
+
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
@@ -29,6 +32,31 @@ export default function CheckoutForm() {
       })
       .then((data) => {
         setClientSecret(data.clientSecret);
+        toaster.notify("Payment succeeds 4242 4242 4242 4242", {
+          duration: null,
+          position: "top-left"
+        });
+        toaster.notify("Authentication required 4000 0025 0000 3155", {
+          duration: null,
+          position: "top-left"
+        });
+        toaster.notify("Payment is declined 4000 0000 0000 9995", {
+          duration: null,
+          position: "top-left"
+        });
+        toaster.notify(
+          "Please do not use your credit card. These test card numbers work with any CVC, postal code and future expiry date.",
+          {
+            duration: null,
+            position: "top-left"
+          }
+        );
+      })
+      .catch(function () {
+        toaster.notify("Failed to retrieve Stripe secret key", {
+          duration: null,
+          position: "top-right"
+        });
       });
   }, []);
   const cardStyle = {
@@ -136,6 +164,11 @@ export default function CheckoutForm() {
         </a>{" "}
         Refresh the page to pay again.
       </p>
+      {error && (
+        <p className="card-error" role="alert">
+          {error}
+        </p>
+      )}
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
           {processing ? (
@@ -145,11 +178,6 @@ export default function CheckoutForm() {
           )}
         </span>
       </button>
-      {error && (
-        <div className="card-error" role="alert">
-          {error}
-        </div>
-      )}
     </form>
   );
 }
