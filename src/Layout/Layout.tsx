@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ImagePlaceHolder from "../ImagePlaceHolder/ImagePlaceHolder";
 import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
 
 import FormHeader from "../FormHeader/FormHeader";
 import { Form } from "../Form/Form";

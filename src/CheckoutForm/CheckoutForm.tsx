@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  CardElement,
   useStripe,
   useElements,
   CardNumberElement,
@@ -37,7 +36,7 @@ export default function CheckoutForm() {
       base: {
         color: "#32325d",
         fontFamily: "Montserrat",
-        fontSize: "24px",
+        fontSize: "20px",
         "::placeholder": {}
       },
       invalid: {
@@ -74,6 +73,7 @@ export default function CheckoutForm() {
         Card number
         <CardNumberElement
           options={cardStyle}
+          id="cardNumber"
           onReady={() => {
             console.log("CardNumberElement [ready]");
           }}
@@ -88,42 +88,54 @@ export default function CheckoutForm() {
           }}
         />
       </label>
-      <label>
-        Expiration date
-        <CardExpiryElement
-          options={cardStyle}
-          onReady={() => {
-            console.log("CardNumberElement [ready]");
-          }}
-          onChange={(event) => {
-            console.log("CardNumberElement [change]", handleChange(event));
-          }}
-          onBlur={() => {
-            console.log("CardNumberElement [blur]");
-          }}
-          onFocus={() => {
-            console.log("CardNumberElement [focus]");
-          }}
-        />
-      </label>
-      <label>
-        CVC
-        <CardCvcElement
-          options={cardStyle}
-          onReady={() => {
-            console.log("CardNumberElement [ready]");
-          }}
-          onChange={(event) => {
-            console.log("CardNumberElement [change]", handleChange(event));
-          }}
-          onBlur={() => {
-            console.log("CardNumberElement [blur]");
-          }}
-          onFocus={() => {
-            console.log("CardNumberElement [focus]");
-          }}
-        />
-      </label>
+      <div className="input-container">
+        <div className="small-input-container">
+          <label>Expiration date</label>
+          <CardExpiryElement
+            options={cardStyle}
+            id="cardExpiry"
+            onReady={() => {
+              console.log("CardNumberElement [ready]");
+            }}
+            onChange={(event) => {
+              console.log("CardNumberElement [change]", handleChange(event));
+            }}
+            onBlur={() => {
+              console.log("CardNumberElement [blur]");
+            }}
+            onFocus={() => {
+              console.log("CardNumberElement [focus]");
+            }}
+          />
+        </div>
+        <div className="small-input-container">
+          <label>CVC</label>
+          <CardCvcElement
+            options={cardStyle}
+            id="cardCvc"
+            onReady={() => {
+              console.log("CardNumberElement [ready]");
+            }}
+            onChange={(event) => {
+              console.log("CardNumberElement [change]", handleChange(event));
+            }}
+            onBlur={() => {
+              console.log("CardNumberElement [blur]");
+            }}
+            onFocus={() => {
+              console.log("CardNumberElement [focus]");
+            }}
+          />
+        </div>
+      </div>
+      <p className={succeeded ? "result-message" : "result-message hidden"}>
+        Payment succeeded, see the result in your
+        <a href={`https://dashboard.stripe.com/test/payments`}>
+          {" "}
+          Stripe dashboard.
+        </a>{" "}
+        Refresh the page to pay again.
+      </p>
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
           {processing ? (
@@ -138,14 +150,6 @@ export default function CheckoutForm() {
           {error}
         </div>
       )}
-      <p className={succeeded ? "result-message" : "result-message hidden"}>
-        Payment succeeded, see the result in your
-        <a href={`https://dashboard.stripe.com/test/payments`}>
-          {" "}
-          Stripe dashboard.
-        </a>{" "}
-        Refresh the page to pay again.
-      </p>
     </form>
   );
 }
