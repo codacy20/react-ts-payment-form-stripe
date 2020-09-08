@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  CardElement,
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardCvcElement,
+  CardExpiryElement
+} from "@stripe/react-stripe-js";
 import "../CheckoutForm/CheckoutForm.scss";
 export default function CheckoutForm() {
   const [succeeded, setSucceeded] = useState(false);
@@ -49,7 +56,7 @@ export default function CheckoutForm() {
     setProcessing(true);
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
-        card: elements.getElement(CardElement)
+        card: elements.getElement(CardNumberElement)
       }
     });
     if (payload.error) {
@@ -63,11 +70,60 @@ export default function CheckoutForm() {
   };
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      <CardElement
-        id="card-element"
-        options={cardStyle}
-        onChange={handleChange}
-      />
+      <label>
+        Card number
+        <CardNumberElement
+          options={cardStyle}
+          onReady={() => {
+            console.log("CardNumberElement [ready]");
+          }}
+          onChange={(event) => {
+            console.log("CardNumberElement [change]", handleChange(event));
+          }}
+          onBlur={() => {
+            console.log("CardNumberElement [blur]");
+          }}
+          onFocus={() => {
+            console.log("CardNumberElement [focus]");
+          }}
+        />
+      </label>
+      <label>
+        Expiration date
+        <CardExpiryElement
+          options={cardStyle}
+          onReady={() => {
+            console.log("CardNumberElement [ready]");
+          }}
+          onChange={(event) => {
+            console.log("CardNumberElement [change]", handleChange(event));
+          }}
+          onBlur={() => {
+            console.log("CardNumberElement [blur]");
+          }}
+          onFocus={() => {
+            console.log("CardNumberElement [focus]");
+          }}
+        />
+      </label>
+      <label>
+        CVC
+        <CardCvcElement
+          options={cardStyle}
+          onReady={() => {
+            console.log("CardNumberElement [ready]");
+          }}
+          onChange={(event) => {
+            console.log("CardNumberElement [change]", handleChange(event));
+          }}
+          onBlur={() => {
+            console.log("CardNumberElement [blur]");
+          }}
+          onFocus={() => {
+            console.log("CardNumberElement [focus]");
+          }}
+        />
+      </label>
       <button disabled={processing || disabled || succeeded} id="submit">
         <span id="button-text">
           {processing ? (
